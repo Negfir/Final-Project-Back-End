@@ -7,6 +7,7 @@ mongoose.connect('mongodb://localhost/reyhoon', {useNewUrlParser: true});
 
 
 var Comment = require('./models/Comment');
+var Restaurant = require('./models/Restaurant');
 
 //var state = mongoose.model('comment');
 // Connect to Mongoose
@@ -30,10 +31,24 @@ var com = new Comment({
 
 });
 
-com.save().then(result =>{
+var res = new Restaurant({
+	_id: new mongoose.Types.ObjectId(),
+	name:'sdkfn',
+	logo:'dkfn', // src of logo image
+	openingTime:3, // time of opening
+	closingTime:2, // time of closing
+	averageRate:7, // average of comments rate
+	//address: AddressSchema,
+	//categories:[CategorySchema], // array of food categories. e.g. fastfood or irani
+	comments:[com]
+
+});
+
+res.save().then(result =>{
 	console.log(result);
 })
 .catch(err => console.log(err));
+
 
 //GET REQUEST
 app.get('/', function(req, res){
@@ -46,6 +61,15 @@ app.get('/api/comments', function(req, res){
            throw err;
        }
        res.json(comments);
+    });
+});
+
+app.get('/api/restaurant', function(req, res){
+    Restaurant.getRestaurants(function(err, restaurants){
+       if(err) {
+           throw err;
+       }
+       res.json(restaurants);
     });
 });
 
