@@ -17,7 +17,7 @@ var commentSchema = mongoose.Schema({
 
 var Comment = module.exports = mongoose.model('Comment', commentSchema); //permits access from outside
 
-// Get Books
+// Get Comments
 module.exports.getComments = function(callback, limit){
     Comment.find(callback).limit(limit);
 }

@@ -1,9 +1,18 @@
 var mongoose = require('mongoose');
 
 
-    var mongoose = require('mongoose'),
-        Comment = require('./Comment'),
+    var mongoose = require('mongoose');
+    var Comment = require('./Comment'),
         commentSchema = mongoose.model('Comment').schema;
+
+    var Food = require('./Food'),
+        foodSchema = mongoose.model('Food').schema;
+
+    var Category = require('./Category'),
+        CategorySchema = mongoose.model('Category').schema;
+
+    var Address = require('./Address'),
+        AddressSchema = mongoose.model('Address').schema;
 
 
 //Restaurant Schema
@@ -14,9 +23,9 @@ var restaurantSchema = mongoose.Schema({
 	openingTime:Number, // time of opening
 	closingTime:Number, // time of closing
 	averageRate:Number, // average of comments rate
-	//address: AddressSchema,
-	//categories:[CategorySchema], // array of food categories. e.g. fastfood or irani
-	//foods:[foodSchema],
+	address: AddressSchema,
+	categories:[CategorySchema], // array of food categories. e.g. fastfood or irani
+	foods:[foodSchema],
 	comments:[commentSchema]
 });
 

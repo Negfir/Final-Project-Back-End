@@ -8,6 +8,10 @@ mongoose.connect('mongodb://localhost/reyhoon', {useNewUrlParser: true});
 
 var Comment = require('./models/Comment');
 var Restaurant = require('./models/Restaurant');
+var Food = require('./models/Food');
+var Category = require('./models/Category');
+var Address = require('./models/Address');
+
 
 //var state = mongoose.model('comment');
 // Connect to Mongoose
@@ -27,7 +31,30 @@ var com = new Comment({
 	quality: 3, // a number between 0-5
 	packaging: 2,
 	deliveryTime: 3,
-	text: 'sdffsf ',
+	text: 'sdffsf '
+
+});
+
+var foo = new Food({
+	_id: new mongoose.Types.ObjectId(),
+	name:'Pizza',
+	price:'25000', // price of this food in Tomans
+	description:'Tomato, Cheese, Basil', // optional
+	foodSet:'Fast Food' // set of this food like kabab, khorak, salad
+
+});
+
+var cat = new Category({
+	_id: new mongoose.Types.ObjectId(),
+	name:'Italian'
+
+});
+
+var add = new Address({
+	_id: new mongoose.Types.ObjectId(),
+	city: 'Tehran', // e.g. Tehran
+	area: 'Valiasr', // e.g. Keshavarz Blvd,
+	addressLine:'Valiasr street' // full address text
 
 });
 
@@ -38,8 +65,9 @@ var res = new Restaurant({
 	openingTime:3, // time of opening
 	closingTime:2, // time of closing
 	averageRate:7, // average of comments rate
-	//address: AddressSchema,
-	//categories:[CategorySchema], // array of food categories. e.g. fastfood or irani
+	address: add,
+	categories:[cat], // array of food categories. e.g. fastfood or irani
+	foods:[foo], // array of food categories. e.g. fastfood or irani
 	comments:[com]
 
 });
@@ -70,6 +98,33 @@ app.get('/api/restaurant', function(req, res){
            throw err;
        }
        res.json(restaurants);
+    });
+});
+
+app.get('/api/food', function(req, res){
+    Food.getFoods(function(err, foods){
+       if(err) {
+           throw err;
+       }
+       res.json(foods);
+    });
+});
+
+app.get('/api/category', function(req, res){
+    Category.getCategories(function(err, categories){
+       if(err) {
+           throw err;
+       }
+       res.json(categories);
+    });
+});
+
+app.get('/api/address', function(req, res){
+    Address.getAddresses(function(err, addresses){
+       if(err) {
+           throw err;
+       }
+       res.json(addresses);
     });
 });
 
