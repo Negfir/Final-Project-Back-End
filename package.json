@@ -4,13 +4,22 @@
   "description": "\u001b[A\u001b[Bweb programming final project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "server": "nodeman server.js"
   },
   "dependencies": {
-    "express": "*",
     "body-parser": "*",
-    "mongoose": "*"
+    "concurrently": "^4.1.1",
+    "express": "^4.17.1",
+    "lodash.where": "^3.1.0",
+    "mongoose": "*",
+    "underscore": "^1.9.1",
+    "vue-router": "^3.0.7"
   },
   "author": "Negin Firouzian",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodeman": "^1.1.2"
+  }
 }

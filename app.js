@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var where = require("lodash.where");
 
 mongoose.connect('mongodb://localhost/reyhoon', {useNewUrlParser: true});
 
@@ -78,6 +79,15 @@ res.save().then(result =>{
 .catch(err => console.log(err));
 
 
+app.get('/api/tetData',(req,res)=>{
+	const customers =[
+		{id: 1, firstName: 'John', lastName: 'Doe'}
+	];
+	res.json(customers);
+});
+//res.json(customers);
+
+
 //GET REQUEST
 app.get('/', function(req, res){
     res.send('Please use /api/books or /api/genres');
@@ -93,12 +103,28 @@ app.get('/api/comments', function(req, res){
 });
 
 app.get('/api/restaurant', function(req, res){
-    Restaurant.getRestaurants(function(err, restaurants){
+	if(Object.keys(req.query).length !== 0){
+    Restaurant.getRestaurants(req.query,function(err, restaurants){
        if(err) {
            throw err;
        }
        res.json(restaurants);
+     
     });
+}
+else{
+    Restaurant.getRestaurants(0,function(err, restaurants){
+       if(err) {
+           throw err;
+       }
+       res.json(restaurants);
+     
+    });
+
+}
+
+
+
 });
 
 app.get('/api/food', function(req, res){
@@ -106,6 +132,7 @@ app.get('/api/food', function(req, res){
        if(err) {
            throw err;
        }
+
        res.json(foods);
     });
 });
@@ -128,5 +155,5 @@ app.get('/api/address', function(req, res){
     });
 });
 
-app.listen(3000);
-console.log('Running on port 3000...');
+app.listen(5000);
+console.log('Running on port 5000...');

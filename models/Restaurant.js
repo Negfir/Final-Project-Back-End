@@ -32,6 +32,14 @@ var restaurantSchema = mongoose.Schema({
 var Restaurant = module.exports = mongoose.model('Restaurant', restaurantSchema); //permits access from outside
 
 // Get Restaurant
-module.exports.getRestaurants = function(callback, limit){
-    Restaurant.find(callback).limit(limit);
+module.exports.getRestaurants = function(query,callback){
+	if(query){
+	for (const key in query) {
+       console.log(key, query[key])
+       Restaurant.find({name:query[key]},callback);
+   }
+	}
+	else
+		Restaurant.find(callback);
+    
 }
