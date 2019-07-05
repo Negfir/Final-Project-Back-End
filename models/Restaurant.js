@@ -34,11 +34,11 @@ var Restaurant = module.exports = mongoose.model('Restaurant', restaurantSchema)
 // Get Restaurant
 module.exports.getRestaurants = function(query,callback){
 	if(query){
-	for (const key in query) {
-		console.log(query)
-       console.log(key, query[key])
+		var cnt=0;
+	
+
        Restaurant.find(query,callback);
-   }
+  
 	}
 	else
 		Restaurant.find(callback);

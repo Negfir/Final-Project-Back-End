@@ -27,48 +27,103 @@ db.once('open', function() {
 
 var com = new Comment({
 	_id: new mongoose.Types.ObjectId(),
-	author: 'Gholam',
+	author: 'علی',
 	// rates
 	quality: 3, // a number between 0-5
 	packaging: 2,
 	deliveryTime: 3,
-	text: 'sdffsf '
+	text: 'خیلی بد مزه بود اه اه'
 
 });
 
-var foo = new Food({
+var foo1 = new Food({
 	_id: new mongoose.Types.ObjectId(),
-	name:'پیتزا',
-	price:'25000', // price of this food in Tomans
-	description:'گوجه, پنیر, ریحون', // optional
-	foodSet:'Fast Food' // set of this food like kabab, khorak, salad
+	name:'همبرگر',
+	price:'28000', // price of this food in Tomans
+	description:'گوشت کاهو نان', // optional
+	foodSet:'غذای اصلی' // set of this food like kabab, khorak, salad
+
+});
+var foo2 = new Food({
+  _id: new mongoose.Types.ObjectId(),
+  name:'همبرگر داون تاون',
+  price:'25000', // price of this food in Tomans
+  description:'گوجه, پنیر, ریحون', // optional
+  foodSet:'غذای اصلی'// set of this food like kabab, khorak, salad
+
+});
+var foo3 = new Food({
+  _id: new mongoose.Types.ObjectId(),
+  name:'فرنچ تست',
+  price:'225000', // price of this food in Tomans
+  description:'تست بدمزه', // optional
+  foodSet:'صبحانه' // set of this food like kabab, khorak, salad
+
+});
+var foo4 = new Food({
+  _id: new mongoose.Types.ObjectId(),
+  name:'آب معدنی',
+  price:'2000', // price of this food in Tomans
+  description:'', // optional
+  foodSet:'نوشیدنی' // set of this food like kabab, khorak, salad
+
+});
+var foo5 = new Food({
+  _id: new mongoose.Types.ObjectId(),
+  name:'نوشابه',
+  price:'5000', // price of this food in Tomans
+  description:'', // optional
+  foodSet:'نوشیدنی' // set of this food like kabab, khorak, salad
 
 });
 
-var cat = new Category({
+var cat1 = new Category({
 	_id: new mongoose.Types.ObjectId(),
-	name:'Italian'
+	name:'فست فود'
 
 });
+var cat2 = new Category({
+  _id: new mongoose.Types.ObjectId(),
+  name:'غذتی ایرانی'
+
+});
+var cat3 = new Category({
+  _id: new mongoose.Types.ObjectId(),
+  name:'ایتالیایی'
+
+});
+
+var cat4 = new Category({
+  _id: new mongoose.Types.ObjectId(),
+  name:'فرنگی'
+
+});
+
+var cat5 = new Category({
+  _id: new mongoose.Types.ObjectId(),
+  name:'دریایی'
+
+});
+
 
 var add = new Address({
 	_id: new mongoose.Types.ObjectId(),
 	city: 'تهران', // e.g. Tehran
 	area: 'ولیعصر', // e.g. Keshavarz Blvd,
-	addressLine:'Valiasr street' // full address text
+	addressLine:'خیابان ولیعصر نرسیده به میدان ولیعصر' // full address text
 
 });
 
 var res = new Restaurant({
 	_id: new mongoose.Types.ObjectId(),
-	name:'داون تاون',
-	logo:'dkfn', // src of logo image
-	openingTime:3, // time of opening
-	closingTime:2, // time of closing
-	averageRate:7, // average of comments rate
+	name:'آریو انقلاب',
+	logo:'../Images/Ario.png', // src of logo image
+	openingTime:16, // time of opening
+	closingTime:4, // time of closing
+	averageRate:2, // average of comments rate
 	address: add,
-	categories:[cat], // array of food categories. e.g. fastfood or irani
-	foods:[foo], // array of food categories. e.g. fastfood or irani
+	categories:[cat1,cat2,cat3,cat4,cat5], // array of food categories. e.g. fastfood or irani
+	foods:[foo1,foo2,foo3,foo4,foo5], // array of food categories. e.g. fastfood or irani
 	comments:[com]
 
 });
@@ -101,12 +156,13 @@ app.get('/api/comments', function(req, res){
        res.json(comments);
     });
 });
-
+try{
 app.get('/api/restaurant', function(req, res){
+  
 	if(Object.keys(req.query).length !== 0){
     Restaurant.getRestaurants(req.query,function(err, restaurants){
        if(err) {
-           throw err;
+           console.log(err);
        }
        res.json(restaurants);
      
@@ -115,7 +171,7 @@ app.get('/api/restaurant', function(req, res){
 else{
     Restaurant.getRestaurants(0,function(err, restaurants){
        if(err) {
-           throw err;
+           console.log(err);
        }
        res.json(restaurants);
      
@@ -124,8 +180,12 @@ else{
 }
 
 
-
 });
+}
+    catch(err){
+           console.log(err);
+    
+   }
 
 app.get('/api/food', function(req, res){
     Food.getFoods(function(err, foods){
