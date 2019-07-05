@@ -38,9 +38,9 @@ var com = new Comment({
 
 var foo = new Food({
 	_id: new mongoose.Types.ObjectId(),
-	name:'Pizza',
+	name:'پیتزا',
 	price:'25000', // price of this food in Tomans
-	description:'Tomato, Cheese, Basil', // optional
+	description:'گوجه, پنیر, ریحون', // optional
 	foodSet:'Fast Food' // set of this food like kabab, khorak, salad
 
 });
@@ -53,15 +53,15 @@ var cat = new Category({
 
 var add = new Address({
 	_id: new mongoose.Types.ObjectId(),
-	city: 'Tehran', // e.g. Tehran
-	area: 'Valiasr', // e.g. Keshavarz Blvd,
+	city: 'تهران', // e.g. Tehran
+	area: 'ولیعصر', // e.g. Keshavarz Blvd,
 	addressLine:'Valiasr street' // full address text
 
 });
 
 var res = new Restaurant({
 	_id: new mongoose.Types.ObjectId(),
-	name:'sdkfn',
+	name:'داون تاون',
 	logo:'dkfn', // src of logo image
 	openingTime:3, // time of opening
 	closingTime:2, // time of closing
