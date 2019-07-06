@@ -17,7 +17,7 @@ var mongoose = require('mongoose');
 
 //Restaurant Schema
 var restaurantSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	//_id: mongoose.Schema.Types.ObjectId,
 	name:String,
 	logo:String, // src of logo image
 	openingTime:Number, // time of opening
@@ -34,8 +34,13 @@ var Restaurant = module.exports = mongoose.model('Restaurant', restaurantSchema)
 // Get Restaurant
 module.exports.getRestaurants = function(query,callback){
 	if(query){
-		var cnt=0;
-	
+	// 	var cnt=0;
+	// 	for (const key in query) {
+			 
+	// 	console.log(query)
+	// }
+ //       console.log(key, query[key])
+      
 
        Restaurant.find(query,callback);
   
@@ -43,4 +48,55 @@ module.exports.getRestaurants = function(query,callback){
 	else
 		Restaurant.find(callback);
     
+}
+
+module.exports.getDownTown = function(callback){
+
+       Restaurant.find({name:'داون تاون'},callback);
+  
+    
+}
+
+module.exports.getArio = function(callback){
+
+       Restaurant.find({name:'آریو انقلاب'},callback);
+  
+    
+}
+
+module.exports.getDayNight = function(callback){
+
+       Restaurant.find({name:'دی نایت'},callback);
+  
+    
+}
+
+module.exports.getDownTownComment = function(callback){
+
+       Restaurant.find({name:'داون تاون'},{comments:1},callback);
+  
+    
+}
+
+module.exports.getArioComment = function(callback){
+
+       Restaurant.find({name:'آریو انقلاب'},{comments:1},callback);
+  
+    
+}
+
+module.exports.getDayNightComment = function(callback){
+
+       Restaurant.find({name:'دی نایت'},{comments:1},callback);
+  
+    
+}
+
+module.exports.addRestaurant = (restaurant, callback) => {
+	Restaurant.create(restaurant, callback);
+}
+
+module.exports.addDayNightRestaurant = (restaurant, callback) => {
+	Comment.create(restaurant, callback);
+	Restaurant.find({name:'دی نایت'},callback).comments.push("h");
 }

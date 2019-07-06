@@ -6,7 +6,7 @@ var where = require("lodash.where");
 
 mongoose.connect('mongodb://localhost/reyhoon', {useNewUrlParser: true});
 
-
+app.use(bodyParser.json());
 var Comment = require('./models/Comment');
 var Restaurant = require('./models/Restaurant');
 var Food = require('./models/Food');
@@ -109,29 +109,29 @@ var cat5 = new Category({
 var add = new Address({
 	_id: new mongoose.Types.ObjectId(),
 	city: 'تهران', // e.g. Tehran
-	area: 'ولیعصر', // e.g. Keshavarz Blvd,
+	area: 'انقلاب', // e.g. Keshavarz Blvd,
 	addressLine:'خیابان ولیعصر نرسیده به میدان ولیعصر' // full address text
 
 });
 
-var res = new Restaurant({
-	_id: new mongoose.Types.ObjectId(),
-	name:'آریو انقلاب',
-	logo:'../Images/Ario.png', // src of logo image
-	openingTime:16, // time of opening
-	closingTime:4, // time of closing
-	averageRate:2, // average of comments rate
-	address: add,
-	categories:[cat1,cat2,cat3,cat4,cat5], // array of food categories. e.g. fastfood or irani
-	foods:[foo1,foo2,foo3,foo4,foo5], // array of food categories. e.g. fastfood or irani
-	comments:[com]
+// var res = new Restaurant({
+// 	_id: new mongoose.Types.ObjectId(),
+// 	name:'دی نایت',
+// 	logo:'../Images/DayNight.png', // src of logo image
+// 	openingTime:14, // time of opening
+// 	closingTime:23, // time of closing
+// 	averageRate:3, // average of comments rate
+// 	address: add,
+// 	categories:[cat1,cat2,cat3,cat4,cat5], // array of food categories. e.g. fastfood or irani
+// 	foods:[foo1,foo2,foo3,foo4,foo5], // array of food categories. e.g. fastfood or irani
+// 	comments:[com]
 
-});
+// });
 
-res.save().then(result =>{
-	console.log(result);
-})
-.catch(err => console.log(err));
+// res.save().then(result =>{
+// 	console.log(result);
+// })
+// .catch(err => console.log(err));
 
 
 app.get('/api/tetData',(req,res)=>{
@@ -187,6 +187,89 @@ else{
     
    }
 
+
+
+   
+
+app.get('/api/restaurant/DownTown', function(req, res){
+    Restaurant.getDownTown(function(err, restaurants){
+       if(err) {
+           throw err;
+       }
+
+       res.json(restaurants);
+    });
+});
+
+
+app.get('/api/restaurant/Ario', function(req, res){
+    Restaurant.getArio(function(err, restaurants){
+       if(err) {
+           throw err;
+       }
+
+       res.json(restaurants);
+    });
+});
+
+app.get('/api/restaurant/DayNight', function(req, res){
+    Restaurant.getDayNight(function(err, restaurants){
+       if(err) {
+           throw err;
+       }
+
+       res.json(restaurants);
+    });
+});
+
+
+
+app.get('/api/restaurant/DownTown/comments', function(req, res){
+    Restaurant.getDownTownComment(function(err, comments){
+       if(err) {
+           throw err;
+       }
+
+       res.json(comments);
+    });
+});
+
+
+app.get('/api/restaurant/Ario/comments', function(req, res){
+    Restaurant.getArioComment(function(err, comments){
+       if(err) {
+           throw err;
+       }
+
+       res.json(comments);
+    });
+});
+
+app.get('/api/restaurant/DayNight/comments', function(req, res){
+    Restaurant.getDayNightComment(function(err, comments){
+       if(err) {
+           throw err;
+       }
+
+       res.json(comments);
+    });
+});
+
+
+
+
+
+
+app.get('/api/food', function(req, res){
+    Food.getFoods(function(err, foods){
+       if(err) {
+           throw err;
+       }
+
+       res.json(foods);
+    });
+});
+
 app.get('/api/food', function(req, res){
     Food.getFoods(function(err, foods){
        if(err) {
@@ -214,6 +297,55 @@ app.get('/api/address', function(req, res){
        res.json(addresses);
     });
 });
+
+
+
+
+app.post('/api/restaurant', (req, res) => {
+  var restaurant = req.body;
+  Restaurant.addRestaurant(restaurant, (err, restaurant) => {
+    if(err){
+      throw err;
+    }
+    res.json(restaurant);
+  });
+});
+
+
+
+app.post('/api/restaurant/DownTown/comments', (req, res) => {
+  var restaurant = req.body;
+  Restaurant.addDownTownRestaurant(restaurant, (err, restaurant) => {
+    if(err){
+      throw err;
+    }
+    res.json(restaurant);
+  });
+});
+
+
+app.post('/api/restaurant/DayNight/comments', (req, res) => {
+  var restaurant = req.body;
+  Restaurant.addDayNightRestaurant(restaurant, (err, restaurant) => {
+    if(err){
+      throw err;
+    }
+    res.json(restaurant);
+  });
+});
+
+app.post('/api/restaurant/Ario/comments', (req, res) => {
+  var restaurant = req.body;
+  Restaurant.addArioRestaurant(restaurant, (err, restaurant) => {
+    if(err){
+      throw err;
+    }
+    res.json(restaurant);
+  });
+});
+
+
+
 
 app.listen(5000);
 console.log('Running on port 5000...');
