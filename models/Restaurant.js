@@ -96,7 +96,7 @@ module.exports.addRestaurant = (restaurant, callback) => {
 	Restaurant.create(restaurant, callback);
 }
 
-module.exports.addDayNightRestaurant = (restaurant, callback) => {
-	Comment.create(restaurant, callback);
-	Restaurant.find({name:'دی نایت'},callback).comments.push("h");
-}
+// module.exports.addDayNightRestaurant = (restaurant, callback) => {
+// 	Comment.create(restaurant, callback);
+// 	Restaurant.find({name:'دی نایت'},callback).comments.push("h");
+// }

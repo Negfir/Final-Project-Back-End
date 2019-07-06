@@ -128,8 +128,24 @@ var add = new Address({
 
 // });
 
-// res.save().then(result =>{
+// cat1.save().then(result =>{
 // 	console.log(result);
+// })
+// .catch(err => console.log(err));
+// cat2.save().then(result =>{
+//   console.log(result);
+// })
+// .catch(err => console.log(err));
+// cat3.save().then(result =>{
+//   console.log(result);
+// })
+// .catch(err => console.log(err));
+// cat4.save().then(result =>{
+//   console.log(result);
+// })
+// .catch(err => console.log(err));
+// cat5.save().then(result =>{
+//   console.log(result);
 // })
 // .catch(err => console.log(err));
 
